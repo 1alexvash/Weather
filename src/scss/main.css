@@ -804,8 +804,12 @@ body {
 }
 
 .App .content .temp {
-  margin: 20px 0;
+  margin: 10px 0;
   font-size: 48px;
+}
+
+.App .content .city {
+  margin: 10px 0;
 }
 
 .App .content .time {

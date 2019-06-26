@@ -11,37 +11,44 @@ const App = () => {
     dataReady: false,
     icon: undefined,
     temperature: undefined,
+    city: undefined,
     time: new Date().getHours() + ":" + new Date().getMinutes()
   });
 
-  const fetchWeatherData = async (lat, lon) => {
-    const city = "Lutsk";
+  const getCity = async () => {
+    try {
+      const location = await axios.get(
+        "http://api.ipstack.com/46.173.121.249?access_key=80d851c0cffdc633c1a7210ef2f454e7"
+      );
+      fetchWeatherData(location.data.city);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const fetchWeatherData = async city => {
     const appId = "4a7bba8e35b7bfadb8a039bd6b248e38";
 
-    const weather = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${appId}&units=metric`
-    );
-
-    console.log(weather);
-    if (weather.status === 200) {
-      setState({
-        ...state,
-        dataReady: true,
-        icon: weather.data.weather[0],
-        temperature: Math.round(weather.data.main.temp)
-      });
+    try {
+      const weather = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${appId}&units=metric`
+      );
+      if (weather.status === 200) {
+        setState({
+          ...state,
+          dataReady: true,
+          icon: weather.data.weather[0],
+          city,
+          temperature: Math.round(weather.data.main.temp)
+        });
+      }
+    } catch (err) {
+      alert(err);
     }
-    console.log(weather.data);
   };
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async position => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        fetchWeatherData(lat, lon);
-      });
-    }
+    getCity();
     // eslint-disable-next-line
   }, []);
 
@@ -51,7 +58,11 @@ const App = () => {
         {state.dataReady ? (
           <Fragment>
             <WeatherIcon icon={state.icon} time={state.time} />
-            <WeatherDetails temperature={state.temperature} time={state.time} />
+            <WeatherDetails
+              temperature={state.temperature}
+              city={state.city}
+              time={state.time}
+            />
           </Fragment>
         ) : (
           "Loading..."
