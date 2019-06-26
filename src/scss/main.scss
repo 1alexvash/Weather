@@ -1,0 +1,139 @@
+@import "reset";
+@import "responsive";
+@import "openweather/open-weather-icons";
+
+body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.App {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  &.time-0 {
+    background: linear-gradient(
+      darken(lightblue, 30%),
+      darken(deepskyblue, 30%)
+    );
+  }
+  &.time-1 {
+    background: linear-gradient(
+      darken(lightblue, 25%),
+      darken(deepskyblue, 25%)
+    );
+  }
+  &.time-2 {
+    background: linear-gradient(
+      darken(lightblue, 20%),
+      darken(deepskyblue, 20%)
+    );
+  }
+  &.time-3 {
+    background: linear-gradient(
+      darken(lightblue, 15%),
+      darken(deepskyblue, 15%)
+    );
+  }
+  &.time-4 {
+    background: linear-gradient(
+      darken(lightblue, 10%),
+      darken(deepskyblue, 10%)
+    );
+  }
+  &.time-5 {
+    background: linear-gradient(darken(lightblue, 5%), darken(deepskyblue, 5%));
+  }
+  &.time-6 {
+    background: linear-gradient(lightblue, deepskyblue);
+  }
+  &.time-7 {
+    background: linear-gradient(lighten(orange, 35%), lighten(orange, 45%));
+  }
+  &.time-8 {
+    background: linear-gradient(lighten(orange, 30%), lighten(orange, 40%));
+  }
+  &.time-9 {
+    background: linear-gradient(lighten(orange, 25%), lighten(orange, 35%));
+  }
+  &.time-10 {
+    background: linear-gradient(lighten(orange, 20%), lighten(orange, 30%));
+  }
+  &.time-11 {
+    background: linear-gradient(lighten(orange, 15%), lighten(orange, 25%));
+  }
+  &.time-12 {
+    background: linear-gradient(lighten(orange, 10%), lighten(orange, 20%));
+  }
+  &.time-13 {
+    background: linear-gradient(lighten(orange, 5%), lighten(orange, 15%));
+  }
+  &.time-14 {
+    background: linear-gradient(lighten(orange, 0%), lighten(orange, 10%));
+  }
+  &.time-15 {
+    background: linear-gradient(darken(orange, 5%), lighten(orange, 5%));
+  }
+  &.time-16 {
+    background: linear-gradient(darken(orange, 10%), orange);
+  }
+  &.time-17 {
+    background: linear-gradient(darken(orange, 15%), darken(orange, 5%));
+  }
+  &.time-18 {
+    background: linear-gradient(darken(orange, 20%), darken(orange, 10%));
+  }
+  &.time-19 {
+    background: linear-gradient(darken(pink, 40%), darken(pink, 20%));
+  }
+  &.time-20 {
+    background: linear-gradient(darken(pink, 50%), darken(pink, 30%));
+  }
+  &.time-21 {
+    background: linear-gradient(
+      darken(deepskyblue, 25%),
+      darken(deepskyblue, 15%)
+    );
+  }
+  &.time-22 {
+    background: linear-gradient(
+      darken(deepskyblue, 30%),
+      darken(deepskyblue, 20%)
+    );
+  }
+  &.time-23 {
+    background: linear-gradient(
+      darken(deepskyblue, 35%),
+      darken(deepskyblue, 25%)
+    );
+  }
+
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 20px;
+    transform: translate(-50%, -50%);
+
+    font-size: 24px;
+    line-height: 40px;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    text-shadow: 1px 2px 10px rgba(black, 0.6);
+
+    .icon {
+      i {
+        font-size: 100px;
+      }
+    }
+    .temp {
+      margin: 20px 0;
+      font-size: 48px;
+    }
+    .time {
+      font-size: 32px;
+    }
+  }
+}
