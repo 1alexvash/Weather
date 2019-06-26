@@ -16,13 +16,20 @@ const App = () => {
   });
 
   const getCity = async () => {
-    try {
-      const location = await axios.get(
-        "http://api.ipstack.com/46.173.121.249?access_key=80d851c0cffdc633c1a7210ef2f454e7"
-      );
-      fetchWeatherData(location.data.city);
-    } catch (err) {
-      alert(err);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async position => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+
+        try {
+          const location = await axios.get(
+            `https://api.opencagedata.com/geocode/v1/json?q=${lat}%2C+${lon}&key=83cdb08ee1ff42b388fca37dd29a98a9&pretty=1`
+          );
+          fetchWeatherData(location.data.results[0].components.town);
+        } catch (err) {
+          console.log(err);
+        }
+      });
     }
   };
 
@@ -43,7 +50,7 @@ const App = () => {
         });
       }
     } catch (err) {
-      alert(err);
+      console.log(err);
     }
   };
 
