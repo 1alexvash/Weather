@@ -12,24 +12,45 @@ const App = () => {
     icon: undefined,
     temperature: undefined,
     city: undefined,
-    time: new Date().getHours() + ":" + new Date().getMinutes()
+    time: `${new Date().getHours()}:${
+      new Date().getMinutes() >= 10
+        ? new Date().getMinutes()
+        : "0" + new Date().getMinutes()
+    }`,
+    status: "Loading..."
   });
 
   const getCity = async () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async position => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
+      navigator.geolocation.getCurrentPosition(
+        async position => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
 
-        try {
-          const location = await axios.get(
-            `https://api.opencagedata.com/geocode/v1/json?q=${lat}%2C+${lon}&key=83cdb08ee1ff42b388fca37dd29a98a9&pretty=1`
-          );
-          fetchWeatherData(location.data.results[0].components.town);
-        } catch (err) {
+          if (position === undefined) {
+            setState({
+              ...state,
+              status: "Location data is not available"
+            });
+          }
+
+          try {
+            const location = await axios.get(
+              `https://api.opencagedata.com/geocode/v1/json?q=${lat}%2C+${lon}&key=83cdb08ee1ff42b388fca37dd29a98a9&pretty=1`
+            );
+            fetchWeatherData(location.data.results[0].components.town);
+          } catch (err) {
+            console.log(err);
+          }
+        },
+        err => {
+          setState({
+            ...state,
+            status: "Geolocation data is not available"
+          });
           console.log(err);
         }
-      });
+      );
     }
   };
 
@@ -72,7 +93,7 @@ const App = () => {
             />
           </Fragment>
         ) : (
-          "Loading..."
+          `${state.status}`
         )}
       </div>
     </div>
