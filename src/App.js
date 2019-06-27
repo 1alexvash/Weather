@@ -40,6 +40,10 @@ const App = () => {
             );
             fetchWeatherData(location.data.results[0].components.town);
           } catch (err) {
+            setState({
+              ...state,
+              status: "Can't get location API"
+            });
             console.log(err);
           }
         },
@@ -71,6 +75,10 @@ const App = () => {
         });
       }
     } catch (err) {
+      setState({
+        ...state,
+        status: "Weather API is not available"
+      });
       console.log(err);
     }
   };
