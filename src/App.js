@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 
+import Spinner from "./components/Spinner";
 import WeatherIcon from "./components/WeatherIcon";
 import WeatherDetails from "./components/WeatherDetails";
 
@@ -17,10 +18,11 @@ const App = () => {
         ? new Date().getMinutes()
         : "0" + new Date().getMinutes()
     }`,
-    status: "Loading..."
+    status: <Spinner />
   });
 
   const getCity = async () => {
+    console.log(state);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async position => {
@@ -88,6 +90,8 @@ const App = () => {
     // eslint-disable-next-line
   }, []);
 
+  const status = <Spinner />;
+
   return (
     <div className={`App time-${new Date().getHours()}`}>
       <div className="content">
@@ -101,7 +105,7 @@ const App = () => {
             />
           </Fragment>
         ) : (
-          `${state.status}`
+          state.status
         )}
       </div>
     </div>
