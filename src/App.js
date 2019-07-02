@@ -22,7 +22,6 @@ const App = () => {
   });
 
   const getCity = async () => {
-    console.log(state);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async position => {
